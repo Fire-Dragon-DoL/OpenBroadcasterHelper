@@ -27,21 +27,25 @@ LoadConfig:
   IniRead AudioRepeaterInput1, %ConfigFilePath%, Device1, InputDevice
   IniRead AudioRepeaterOutput1, %ConfigFilePath%, Device1, OutputDevice
   IniRead ToggleHotkey1, %ConfigFilePath%, Device1, Toggle, false
+  IniRead DeviceName1, %ConfigFilePath%, Device1, Name, Device 1
   ; Device2
   AudioRepeaterPID2 := (-1)
   IniRead AudioRepeaterInput2, %ConfigFilePath%, Device2, InputDevice
   IniRead AudioRepeaterOutput2, %ConfigFilePath%, Device2, OutputDevice
   IniRead ToggleHotkey2, %ConfigFilePath%, Device2, Toggle, false
+  IniRead DeviceName2, %ConfigFilePath%, Device1, Name, Device 2
   ; Device3
   AudioRepeaterPID3 := (-1)
   IniRead AudioRepeaterInput3, %ConfigFilePath%, Device3, InputDevice
   IniRead AudioRepeaterOutput3, %ConfigFilePath%, Device3, OutputDevice
   IniRead ToggleHotkey3, %ConfigFilePath%, Device3, Toggle, false
+  IniRead DeviceName3, %ConfigFilePath%, Device1, Name, Device 3
   ; Device4
   AudioRepeaterPID4 := (-1)
   IniRead AudioRepeaterInput4, %ConfigFilePath%, Device4, InputDevice
   IniRead AudioRepeaterOutput4, %ConfigFilePath%, Device4, OutputDevice
   IniRead ToggleHotkey4, %ConfigFilePath%, Device4, Toggle, false
+  IniRead DeviceName4, %ConfigFilePath%, Device1, Name, Device 4
 
   If (ToggleHotkey1)
     Hotkey %ToggleHotkey1%, OnToggleAudioRepeater1
@@ -53,11 +57,11 @@ LoadConfig:
     Hotkey %ToggleHotkey4%, OnToggleAudioRepeater4
 Return
 
-AudioRepeaterCommand(inputDev, outputDev)
+AudioRepeaterCommand(inputDev, outputDev, deviceName)
 {
   global AudioRepeaterPath
 
-  AudioRepeaterWithParams = %AudioRepeaterPath% /AutoStart /Input:"%inputDev%" /Output:"%outputDev%"
+  AudioRepeaterWithParams = %AudioRepeaterPath% /AutoStart /Input:"%inputDev%" /Output:"%outputDev%" /WindowName:"%deviceName%"
 
   Return %AudioRepeaterWithParams%
 }
@@ -121,11 +125,12 @@ OpenAudioRepeater1()
   global AudioRepeaterPID1
   global AudioRepeaterInput1
   global AudioRepeaterOutput1
+  global DeviceName1
 
   If (AudioRepeaterPID1 <> (-1))
     Return
 
-  repeaterWithParams := AudioRepeaterCommand(AudioRepeaterInput1, AudioRepeaterOutput1)
+  repeaterWithParams := AudioRepeaterCommand(AudioRepeaterInput1, AudioRepeaterOutput1, DeviceName1)
   Run %repeaterWithParams%,, Min, AudioRepeaterPID1
 }
 OpenAudioRepeater2()
@@ -133,11 +138,12 @@ OpenAudioRepeater2()
   global AudioRepeaterPID2
   global AudioRepeaterInput2
   global AudioRepeaterOutput2
+  global DeviceName2
 
   If (AudioRepeaterPID2 <> (-1))
     Return
 
-  repeaterWithParams := AudioRepeaterCommand(AudioRepeaterInput2, AudioRepeaterOutput2)
+  repeaterWithParams := AudioRepeaterCommand(AudioRepeaterInput2, AudioRepeaterOutput2, DeviceName2)
   Run %repeaterWithParams%,, Min, AudioRepeaterPID2
 }
 OpenAudioRepeater3()
@@ -145,11 +151,12 @@ OpenAudioRepeater3()
   global AudioRepeaterPID3
   global AudioRepeaterInput3
   global AudioRepeaterOutput3
+  global DeviceName3
 
   If (AudioRepeaterPID3 <> (-1))
     Return
 
-  repeaterWithParams := AudioRepeaterCommand(AudioRepeaterInput3, AudioRepeaterOutput3)
+  repeaterWithParams := AudioRepeaterCommand(AudioRepeaterInput3, AudioRepeaterOutput3, DeviceName3)
   Run %repeaterWithParams%,, Min, AudioRepeaterPID3
 }
 OpenAudioRepeater4()
@@ -157,11 +164,12 @@ OpenAudioRepeater4()
   global AudioRepeaterPID4
   global AudioRepeaterInput4
   global AudioRepeaterOutput4
+  global DeviceName4
 
   If (AudioRepeaterPID4 <> (-1))
     Return
 
-  repeaterWithParams := AudioRepeaterCommand(AudioRepeaterInput4, AudioRepeaterOutput4)
+  repeaterWithParams := AudioRepeaterCommand(AudioRepeaterInput4, AudioRepeaterOutput4, DeviceName4)
   Run %repeaterWithParams%,, Min, AudioRepeaterPID4
 }
 
