@@ -12,6 +12,8 @@ UI:
 
   GoSub InitConfig
   GoSub LoadConfig
+
+  OnExit, GuiClose
 Return
 
 InitConfig:
